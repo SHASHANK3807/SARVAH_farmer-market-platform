@@ -1,0 +1,45 @@
+[
+  {
+    "id": "L1",
+    "crop": "soybean",
+    "qtyTons": 10,
+    "grade": "A",
+    "askingPricePerQuintal": 4400,
+    "qualityNotes": "Moisture < 9.5%, machine cleaned, no discoloration",
+    "district": "Latur",
+    "farmerName": "Priya Patil",
+    "farmerId": "f1",
+    "createdAt": "2026-09-05",
+    "status": "open",
+    "isFpoPool": true,
+    "fpoName": "Latur Kisan FPO"
+  },
+  {
+    "id": "L2",
+    "crop": "onion",
+    "qtyTons": 5,
+    "grade": "B",
+    "askingPricePerQuintal": 3800,
+    "qualityNotes": "Medium size bulbs, dry skins, sorted yesterday",
+    "district": "Pune",
+    "farmerName": "Suresh Deshmukh",
+    "farmerId": "f2",
+    "createdAt": "2026-09-04",
+    "status": "open",
+    "isFpoPool": false
+  },
+  {
+    "id": "L3",
+    "crop": "tur",
+    "qtyTons": 8,
+    "grade": "A",
+    "askingPricePerQuintal": 5700,
+    "qualityNotes": "Premium red tur, organic certified, minimal broken grain",
+    "district": "Nagpur",
+    "farmerName": "Anil Wankhede",
+    "farmerId": "f3",
+    "createdAt": "2026-09-05",
+    "status": "open",
+    "isFpoPool": false
+  }
+]

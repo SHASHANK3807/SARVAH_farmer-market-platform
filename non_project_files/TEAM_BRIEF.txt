@@ -1,0 +1,182 @@
+Mandi Mitra - Team Brief
+========================
+
+Hackathon: Maharashtra State Innovation Society
+Problem Statement ID: 26132
+Internal hackathon deadline: 4 days from today
+
+
+WHAT WE'RE BUILDING
+-------------------
+
+A web app called "Mandi Mitra" (Friend of the Market).
+
+It helps small farmers in Maharashtra make better selling decisions.
+Right now, a farmer has 3 buyers in front of him and ZERO way to
+know which is offering a fair price. He just picks the easiest
+option and loses money. We fix that.
+
+
+THE BIG IDEA
+------------
+
+Don't build a full marketplace. Build a decision-support tool.
+
+The one question a farmer needs answered: "Should I sell today
+or wait?"
+
+So our app shows him:
+  1. Today's price at 3 nearby mandis (side by side)
+  2. 30-day price trend chart
+  3. A clear recommendation: SELL NOW / WAIT 3 DAYS / WAIT 2 WEEKS
+  4. 2-3 verified buyers who want his crop right now
+
+Plus a basic two-sided flow: farmer posts a lot, buyer makes an offer,
+deal is recorded.
+
+
+WHO USES IT
+-----------
+
+Two personas for the demo:
+
+  PRIYA (Farmer)
+    - Opens app on phone
+    - Selects: Soybean, Latur district
+    - Sees: prices, chart, recommendation, buyers
+    - Creates a lot: 10 tons, Grade A, asking Rs 4,400/quintal
+
+  RAJAN (Buyer)
+    - Opens app on desktop
+    - Browses lots, sees Priya's soybean lot
+    - Makes offer: Rs 4,350/quintal for 10 tons
+    - Priya accepts
+    - Transaction shows up in the history page
+
+
+WHAT WE'RE BUILDING (vs. NOT BUILDING)
+---------------------------------------
+
+BUILDING (the 70%):
+  - Real mandi prices (we'll scrape or seed data)
+  - Price trend chart
+  - Sell/wait recommendation engine
+  - Farmer dashboard
+  - Lot creation
+  - Buyer dashboard
+  - Offer + accept flow
+  - Transaction records
+  - Marathi + English toggle (this is a big differentiator)
+  - Verified buyer badges (mocked but looks real)
+
+NOT BUILDING (acknowledged on a "Roadmap" page):
+  - Logistics / transport
+  - Storage finder
+  - Payment escrow
+  - Dispute resolution
+  - Real KYC
+
+Why not? We have 4 days and 3 people. Better to have 8 features
+that work perfectly than 16 features that are broken.
+
+
+TECH STACK
+----------
+
+  - Next.js (App Router)
+  - TypeScript
+  - Tailwind CSS
+  - shadcn/ui (component library)
+  - Recharts (charts)
+  - next-intl (English + Marathi)
+  - JSON files in /data/ for storage (simple, fast, no DB setup)
+
+We're using "vibe coding" style - so let's pick tools we're
+comfortable with. If anyone has a strong preference for a
+different stack, raise it NOW, not on Day 2.
+
+
+DATA PLAN
+---------
+
+Crops: soybean, onion, tur
+Mandis: Latur, Pune, Nashik, Solapur, Nagpur
+
+Day 1 priority: create a REALISTIC SEED DATASET (60 days of prices)
+even if we successfully scrape Agmarknet later. The seed data is our
+demo safety net. If scraping breaks during the demo, we fall back
+to seed data and the demo still works.
+
+
+4-DAY PLAN (HIGH LEVEL)
+-----------------------
+
+  Day 1: Setup, data, basic structure
+  Day 2: Farmer dashboard (HERO feature - the price + chart + rec)
+  Day 3: Buyer dashboard + lot + offer flow
+  Day 4: Polish + demo prep + rehearsal
+
+See CHECKLIST.md for the full task list.
+
+
+ROLES
+-----
+
+We're 3 people. Suggested split (finalize together):
+
+  Person 1: Architecture, data layer, recommendation engine
+  Person 2: Farmer UI + Marathi translations
+  Person 3: Buyer UI + lot/offer flow + polish
+
+But Day 1 we should all three sit together and align on the setup.
+After that, work in parallel and review each other's code.
+
+
+DEMO SCRIPT (3 minutes)
+-----------------------
+
+  0:00-0:30   Problem: farmer has no price info, loses 15%
+  0:30-1:30   Farmer flow: open app, see prices + chart + rec
+  1:30-2:30   Marketplace: create lot, buyer makes offer, accept
+  2:30-3:00   What's next: roadmap, Marathi support, outcomes
+
+The whole thing ends with a transaction record visible. That's
+our "proof it works" moment.
+
+
+JUDGE-FACING OUTCOMES
+---------------------
+
+The problem statement asks for these outcomes. Here's how we
+show each one:
+
+  - Better farmer prices       -> Recommendation engine
+  - Less information asymmetry -> One screen, all prices
+  - Lower transaction cost     -> Direct farmer-to-buyer
+  - Stronger FPO aggregation   -> FPO persona in the data
+  - Less post-harvest loss     -> Sell/wait timing advice
+  - Reliable buyer sourcing    -> Verified badges + history
+  - Transparent records        -> /transactions page
+
+
+GROUND RULES
+------------
+
+1. Don't add features past Day 3. Polish > more features.
+2. Don't skip the seed data. Always have a working demo.
+3. Marathi on key screens, not error messages. Don't over-translate.
+4. Mobile-responsive. Judges will check.
+5. Test the demo URL with ?crop=soybean&district=latur pre-loaded.
+6. Have a 3-min Loom backup recorded on Day 4, in case live demo dies.
+
+
+NEXT STEPS
+----------
+
+1. Read this file (done)
+2. Read CHECKLIST.md
+3. Read docs/SPEC_COVERAGE.md
+4. Confirm stack + roles in team chat
+5. Day 1: setup together (1-2 hrs), then split
+
+Let's go.

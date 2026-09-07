@@ -1,0 +1,100 @@
+Mandi Mitra - Spec Coverage Tracker
+====================================
+
+Maps every item in the problem statement to what we're building,
+mocking, or deferring.
+
+
+PROBLEMS WE'RE SOLVING
+----------------------
+
+  1. No price visibility across mandis/buyers
+     -> Farmer dashboard aggregates 3 mandis + 3 buyers
+
+  2. Fragmented quality specs
+     -> Shown per buyer demand + per lot
+
+  3. Fragmented demand signals
+     -> Buyer demand board, surfaced on farmer dashboard
+
+  4. Fragmented logistics info
+     -> Deferred - roadmap page
+
+  5. Fragmented storage info
+     -> Deferred - roadmap page
+
+  6. Fragmented payment reliability
+     -> Transaction record (timestamps, parties)
+
+  7. Fragmented buyer credentials
+     -> Verified buyer badge (mocked criteria)
+
+  8. Forced sale due to liquidity
+     -> Sale-window recommendation suggests timing
+
+  9. Forced sale due to storage
+     -> (Same as #8)
+
+ 10. Weak bargaining power
+     -> (Same + visible buyer competition)
+
+ 11. Buyers can't aggregate volumes
+     -> Lot creation + filtering by qty
+
+ 12. Buyers can't verify quality
+     -> Grade (A/B/C) on every lot
+
+
+FEATURES WE DELIVER
+-------------------
+
+  A. Mandi price aggregation       BUILT      API + farmer dashboard
+  B. Buyer demand aggregation       BUILT      Buyer portal + farmer dashboard
+  C. Quality requirements           BUILT      Lot form + demand form
+  D. Arrival volumes                MOCKED     One stat widget, seeded
+  E. Transport options              DEFERRED   Roadmap page
+  F. Storage options                DEFERRED   Roadmap page
+  G. Localised price trends         BUILT      Recharts component
+  H. Sale-window recommendation     BUILT      Rules engine + card
+  I. Match farmers/FPOs with buyers BUILT      Lot + offer flow
+  J. Verified buyer credentials     MOCKED     Badge component
+  K. Lot creation                   BUILT      Form + DB
+  L. Quality grading                MOCKED     A/B/C self-declare
+  M. Digital offers                 BUILT      Offer modal + DB
+  Q. Distance consideration         MOCKED     Prototype heuristic: farmer district -> buyer km estimate
+  N. Logistics coordination         DEFERRED   Roadmap page
+  O. Payment tracking               PARTIAL    Transaction record (no escrow)
+  P. Dispute / grievance            DEFERRED   Roadmap page
+
+
+OUTCOMES WE DEMONSTRATE
+-----------------------
+
+  - Improved farmer price realisation
+      -> Sell/wait rec + buyer competition visible
+  - Reduced information asymmetry
+      -> One screen: 3 mandis + 3 buyers + recommendation
+  - Lower transaction cost
+      -> No-middleman direct farmer-to-buyer lot flow
+  - Stronger FPO aggregation
+      -> FPO buyer persona + lot pooling (mentioned)
+  - Reduced post-harvest loss
+      -> Sell/wait advice reduces distress sales
+  - Reliable buyer sourcing
+      -> Verified badge + transaction history
+  - Transparent transaction records
+      -> /transactions page
+
+
+TALLY
+-----
+
+  BUILT    (fully functional):  8  (A, B, C, G, H, I, K, M)
+  MOCKED   (visible + seeded):  5  (D, J, L, O, Q)
+  DEFERRED (roadmap page):      4  (E, F, N, P)
+
+  Total spec items: 17
+  Functional:                  8/17  = 47%
+  Acknowledged (all 3 buckets): 17/17 = 100%
+
+  Target for internal hackathon: 70% functional, 100% acknowledged.

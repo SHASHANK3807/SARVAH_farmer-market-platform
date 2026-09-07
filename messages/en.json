@@ -1,0 +1,111 @@
+{
+  "common": {
+    "appName": "Sarvah",
+    "tagline": "Friend of the Market",
+    "selectLanguage": "Select language",
+    "english": "English",
+    "marathi": "मराठी",
+    "loading": "Loading…",
+    "error": "Something went wrong",
+    "retry": "Retry"
+  },
+  "landing": {
+    "title": "Sarvah — Friend of the Market",
+    "subtitle": "Decide when to sell. Decide to whom to sell. — for Maharashtra's smallholder farmers.",
+    "farmerCta": "I am a farmer",
+    "buyerCta": "I am a buyer",
+    "problemHeading": "The problem",
+    "problemText": "Small farmers sell at whatever price is offered, because they have zero visibility of prices at other mandis and zero way to know which buyer is offering a fair deal. They lose 10-15% on every sale."
+  },
+  "farmer": {
+    "dashboard": "Farmer Dashboard",
+    "selectCrop": "Select crop",
+    "selectDistrict": "Select district",
+    "todaysPrice": "Today's price",
+    "vsYesterday": "vs yesterday",
+    "trendChart": "30-day price trend",
+    "recommendation": "What should I do?",
+    "activeBuyers": "Active buyers for your crop",
+    "noBuyers": "No active buyers right now. Check back tomorrow.",
+    "createLot": "Create a lot",
+    "myLots": "My lots",
+    "arrivalsToday": "{qty} tons arrived at {district} today"
+  },
+  "recommendation": {
+    "SELL_NOW": "SELL NOW",
+    "WAIT_3_DAYS": "WAIT 3 DAYS",
+    "WAIT_2_WEEKS": "WAIT 2 WEEKS",
+    "HOLD": "HOLD",
+    "confidence": "Confidence",
+    "reasoningHeading": "Why?"
+  },
+  "lot": {
+    "createTitle": "Create a new lot",
+    "crop": "Crop",
+    "qtyTons": "Quantity (tons)",
+    "grade": "Grade",
+    "askingPrice": "Asking price (₹/quintal)",
+    "qualityNotes": "Quality notes",
+    "location": "Your district",
+    "submit": "Create lot",
+    "submitting": "Creating…",
+    "listingsTitle": "Available lots",
+    "noLots": "No lots yet.",
+    "detailTitle": "Lot details",
+    "offersReceived": "Offers received",
+    "noOffers": "No offers yet.",
+    "makeOffer": "Make an offer",
+    "viewOffers": "View offers"
+  },
+  "buyer": {
+    "landing": "Buyer Portal",
+    "postDemand": "Post a demand",
+    "myDemands": "My demands",
+    "browseLots": "Browse lots",
+    "offerQty": "Quantity you want (tons)",
+    "offerPrice": "Your offer price (₹/quintal)",
+    "offerMessage": "Message to farmer",
+    "submitOffer": "Submit offer",
+    "deliveryWindow": "Delivery window (days from now)"
+  },
+  "demand": {
+    "crop": "Crop you need",
+    "qty": "Quantity (tons)",
+    "priceMin": "Min price (₹/quintal)",
+    "priceMax": "Max price (₹/quintal)",
+    "grade": "Grade required",
+    "district": "Delivery district",
+    "submit": "Post demand"
+  },
+  "transaction": {
+    "title": "Transactions",
+    "noTransactions": "No transactions yet.",
+    "closedOn": "Closed on",
+    "parties": "Parties",
+    "amount": "Total amount"
+  },
+  "badges": {
+    "verified": "Verified",
+    "fpo": "FPO",
+    "freshnessWarning": "⚠️ Far — consider transport time"
+  },
+  "roadmap": {
+    "title": "Roadmap — what's next",
+    "subtitle": "Features we've deferred to Phase 2",
+    "items": {
+      "logistics": "Logistics coordination with real transport providers",
+      "storage": "Storage finder (godowns, cold storage)",
+      "escrow": "Payment escrow",
+      "dispute": "Dispute resolution",
+      "kyc": "Real KYC for buyers"
+    }
+  },
+  "about": {
+    "title": "About Sarvah",
+    "dataSources": "Data sources",
+    "dataSourcesText": "Mandi prices are based on Agmarknet data, with a fallback seed dataset for demo reliability. Buyer demand posts are seeded for the demo.",
+    "marathiFirst": "Marathi-first design",
+    "marathiFirstText": "Sarvah is designed Marathi-first. Every key screen is available in Marathi, and translations are not afterthoughts — they are first-class.",
+    "team": "Team"
+  }
+}

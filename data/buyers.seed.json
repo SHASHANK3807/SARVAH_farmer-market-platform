@@ -1,0 +1,52 @@
+[
+  {
+    "id": "b1",
+    "name": "Rajan Traders",
+    "organization": "Rajan Agro Processors Pvt Ltd",
+    "district": "Pune",
+    "verified": true,
+    "fpo": false,
+    "trustScore": 92,
+    "criteriaNotes": "APMC licensed, 12 years trading, settled 500+ transactions on time"
+  },
+  {
+    "id": "b2",
+    "name": "Latur Kisan FPO",
+    "organization": "Latur Farmer Producer Company",
+    "district": "Latur",
+    "verified": true,
+    "fpo": true,
+    "trustScore": 88,
+    "criteriaNotes": "FPO registered under MACP/SMART, 450+ farmer members with collective bulk aggregation"
+  },
+  {
+    "id": "b3",
+    "name": "Nashik Wholesale Co.",
+    "organization": "Nashik Onion & Grain Traders",
+    "district": "Nashik",
+    "verified": false,
+    "fpo": false,
+    "trustScore": 65,
+    "criteriaNotes": "New buyer, verified GSTIN, trade history under review"
+  },
+  {
+    "id": "b4",
+    "name": "Solapur Spices & Agro",
+    "organization": "Solapur Spice Trading",
+    "district": "Solapur",
+    "verified": false,
+    "fpo": false,
+    "trustScore": 58,
+    "criteriaNotes": "Limited transaction history on platform"
+  },
+  {
+    "id": "b5",
+    "name": "Vidarbha Dal & Oil Mills",
+    "organization": "Vidarbha Mills Pvt Ltd",
+    "district": "Nagpur",
+    "verified": true,
+    "fpo": false,
+    "trustScore": 95,
+    "criteriaNotes": "Large institutional processor, instant digital settlement, Grade A/FAQ only"
+  }
+]

@@ -1,0 +1,67 @@
+[
+  {
+    "id": "d1",
+    "buyerId": "b1",
+    "crop": "soybean",
+    "district": "Latur",
+    "qtyTons": 10,
+    "priceMinPerQuintal": 4300,
+    "priceMaxPerQuintal": 4500,
+    "grade": "A",
+    "deliveryWindowDays": 7,
+    "createdAt": "2026-09-04",
+    "status": "open"
+  },
+  {
+    "id": "d2",
+    "buyerId": "b2",
+    "crop": "soybean",
+    "district": "Latur",
+    "qtyTons": 25,
+    "priceMinPerQuintal": 4350,
+    "priceMaxPerQuintal": 4550,
+    "grade": "A",
+    "deliveryWindowDays": 10,
+    "createdAt": "2026-09-05",
+    "status": "open"
+  },
+  {
+    "id": "d3",
+    "buyerId": "b3",
+    "crop": "onion",
+    "district": "Nashik",
+    "qtyTons": 8,
+    "priceMinPerQuintal": 3800,
+    "priceMaxPerQuintal": 4000,
+    "grade": "A",
+    "deliveryWindowDays": 5,
+    "createdAt": "2026-09-03",
+    "status": "open"
+  },
+  {
+    "id": "d4",
+    "buyerId": "b5",
+    "crop": "tur",
+    "district": "Nagpur",
+    "qtyTons": 15,
+    "priceMinPerQuintal": 5600,
+    "priceMaxPerQuintal": 5800,
+    "grade": "A",
+    "deliveryWindowDays": 14,
+    "createdAt": "2026-09-05",
+    "status": "open"
+  },
+  {
+    "id": "d5",
+    "buyerId": "b4",
+    "crop": "soybean",
+    "district": "Latur",
+    "qtyTons": 20,
+    "priceMinPerQuintal": 4100,
+    "priceMaxPerQuintal": 4300,
+    "grade": "B",
+    "deliveryWindowDays": 7,
+    "createdAt": "2026-09-02",
+    "status": "open"
+  }
+]

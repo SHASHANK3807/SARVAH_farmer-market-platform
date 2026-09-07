@@ -1,0 +1,12 @@
+[
+  {
+    "id": "O1",
+    "lotId": "L1",
+    "buyerId": "b1",
+    "pricePerQuintal": 4350,
+    "qtyTons": 10,
+    "message": "Ready for immediate truck dispatch to Pune. Settlement in 24 hours.",
+    "createdAt": "2026-09-05",
+    "status": "pending"
+  }
+]

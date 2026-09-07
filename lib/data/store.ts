@@ -15,21 +15,15 @@ const OFFERS_FILE = path.join(DATA_DIR, "offers.runtime.json");
 const TX_FILE = path.join(DATA_DIR, "transactions.runtime.json");
 const DEMANDS_FILE = path.join(DATA_DIR, "demand-posts.runtime.json");
 
-// In-memory cache
-let lotsCache: Lot[] | null = null;
-let offersCache: Offer[] | null = null;
-let txCache: Transaction[] | null = null;
-let demandsCache: DemandPost[] | null = null;
-
 function load<T>(file: string, seed: T[]): T[] {
   if (fs.existsSync(file)) {
     try {
       return JSON.parse(fs.readFileSync(file, "utf8"));
     } catch {
-      return seed;
+      return [...seed];
     }
   }
-  return seed;
+  return [...seed];
 }
 
 function save<T>(file: string, data: T[]) {
@@ -42,8 +36,7 @@ function save<T>(file: string, data: T[]) {
 
 // Lots
 export function getAllLots(): Lot[] {
-  if (!lotsCache) lotsCache = load(LOTS_FILE, seedLots);
-  return lotsCache;
+  return load(LOTS_FILE, seedLots);
 }
 
 export function getLot(id: string): Lot | undefined {
@@ -73,15 +66,13 @@ export function createLot(data: Omit<Lot, "id" | "createdAt" | "status">): Lot {
   };
   const lots = getAllLots();
   lots.unshift(lot);
-  lotsCache = lots;
   save(LOTS_FILE, lots);
   return lot;
 }
 
 // Offers
 export function getAllOffers(): Offer[] {
-  if (!offersCache) offersCache = load(OFFERS_FILE, seedOffers);
-  return offersCache;
+  return load(OFFERS_FILE, seedOffers);
 }
 
 export function getOffersForLot(lotId: string): Offer[] {
@@ -99,7 +90,6 @@ export function createOffer(
   };
   const offers = getAllOffers();
   offers.unshift(offer);
-  offersCache = offers;
   save(OFFERS_FILE, offers);
   return offer;
 }
@@ -109,9 +99,17 @@ export function acceptOffer(offerId: string): { offer: Offer; transaction: Trans
   const offer = offers.find((o) => o.id === offerId);
   if (!offer) return null;
 
+  // Prevent duplicate transactions if already accepted
+  if (offer.status === "accepted") {
+    const existingTx = getAllTransactions().find((t) => t.offerId === offerId);
+    const lot = getAllLots().find((l) => l.id === offer.lotId);
+    if (existingTx && lot) {
+      return { offer, transaction: existingTx, lot };
+    }
+  }
+
   // Update offer status
   offer.status = "accepted";
-  offersCache = offers;
   save(OFFERS_FILE, offers);
 
   // Update lot status
@@ -119,7 +117,6 @@ export function acceptOffer(offerId: string): { offer: Offer; transaction: Trans
   const lot = lots.find((l) => l.id === offer.lotId);
   if (!lot) return null;
   lot.status = "closed";
-  lotsCache = lots;
   save(LOTS_FILE, lots);
 
   // Create transaction (1 ton = 10 quintals)
@@ -136,7 +133,6 @@ export function acceptOffer(offerId: string): { offer: Offer; transaction: Trans
   };
   const txs = getAllTransactions();
   txs.unshift(tx);
-  txCache = txs;
   save(TX_FILE, txs);
 
   return { offer, transaction: tx, lot };
@@ -144,14 +140,12 @@ export function acceptOffer(offerId: string): { offer: Offer; transaction: Trans
 
 // Transactions
 export function getAllTransactions(): Transaction[] {
-  if (!txCache) txCache = load(TX_FILE, seedTransactions);
-  return txCache;
+  return load(TX_FILE, seedTransactions);
 }
 
 // Demand posts
 export function getAllDemands(): DemandPost[] {
-  if (!demandsCache) demandsCache = load(DEMANDS_FILE, seedDemands);
-  return demandsCache;
+  return load(DEMANDS_FILE, seedDemands);
 }
 
 export function getDemandsByBuyer(buyerId: string): DemandPost[] {
@@ -180,7 +174,6 @@ export function createDemand(
   };
   const demands = getAllDemands();
   demands.unshift(demand);
-  demandsCache = demands;
   save(DEMANDS_FILE, demands);
   return demand;
 }

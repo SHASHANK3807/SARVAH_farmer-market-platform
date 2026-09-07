@@ -6,6 +6,8 @@ import { seedBuyers } from "@/lib/data/seed-loader";
 import { formatINR, formatDate } from "@/lib/utils";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 export default async function TransactionsPage({
   params,
 }: {

@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { VerifiedBuyerBadge } from "@/components/shared/VerifiedBuyerBadge";
 import { formatINR } from "@/lib/utils";
 import { useTranslations } from "next-intl";
-import type { BuyerDemand, Buyer } from "@/lib/types";
+import type { DemandPost, Buyer } from "@/lib/types";
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
@@ -42,7 +42,7 @@ export function ActiveBuyersCard({ crop, district }: { crop: string; district: s
           <p className="text-sm text-muted-foreground py-4 text-center">{t("noBuyers")}</p>
         ) : (
           <div className="space-y-3">
-            {demands.map((d: BuyerDemand) => {
+            {demands.map((d: DemandPost) => {
               const buyer = (buyers as Buyer[] | undefined)?.find((b: Buyer) => b.id === d.buyerId);
               return (
                 <div

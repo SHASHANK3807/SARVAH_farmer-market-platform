@@ -9,6 +9,7 @@ export async function GET(request: Request) {
   const crop = (searchParams.get("crop") || "soybean") as Crop;
   const district = (searchParams.get("district") || "Latur") as District;
   const hasStorage = searchParams.get("hasStorage") !== "false";
+  const needCashImmediately = searchParams.get("needCashImmediately") === "true";
 
   if (!crop || !district) {
     return NextResponse.json({ error: "crop and district required" }, { status: 400 });
@@ -18,6 +19,12 @@ export async function GET(request: Request) {
   const normalizedDistrict = (district.charAt(0).toUpperCase() + district.slice(1).toLowerCase()) as District;
 
   const history = await fetchPriceHistory(crop, normalizedDistrict, 60);
-  const result = recommend({ crop, district: normalizedDistrict, history, hasStorage });
+  const result = recommend({
+    crop,
+    district: normalizedDistrict,
+    history,
+    hasStorage,
+    needCashImmediately,
+  });
   return NextResponse.json(result);
 }

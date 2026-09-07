@@ -113,9 +113,9 @@ export function LotForm({ defaultCrop, defaultDistrict }: { defaultCrop?: string
               <Select value={grade} onValueChange={setGrade}>
                 <SelectTrigger className="mt-1 font-medium"><SelectValue /></SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="A">Grade A (FAQ Standard)</SelectItem>
-                  <SelectItem value="B">Grade B (Medium Quality)</SelectItem>
-                  <SelectItem value="C">Grade C (Standard Quality)</SelectItem>
+                  <SelectItem value="A">{t("gradeA")}</SelectItem>
+                  <SelectItem value="B">{t("gradeB")}</SelectItem>
+                  <SelectItem value="C">{t("gradeC")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -131,7 +131,7 @@ export function LotForm({ defaultCrop, defaultDistrict }: { defaultCrop?: string
               className="mt-1"
             />
             <span className="text-[11px] text-muted-foreground mt-0.5 block">
-              Reference APMC today: ~₹4,200/quintal
+              {t("refPriceToday")}
             </span>
           </div>
 
@@ -140,7 +140,7 @@ export function LotForm({ defaultCrop, defaultDistrict }: { defaultCrop?: string
             <Textarea
               value={qualityNotes}
               onChange={(e) => setQualityNotes(e.target.value)}
-              placeholder="e.g., Moisture < 10%, clean machine-harvested..."
+              placeholder={t("qualityNotesPlaceholder")}
               className="mt-1"
             />
           </div>
@@ -150,11 +150,11 @@ export function LotForm({ defaultCrop, defaultDistrict }: { defaultCrop?: string
             <Select value={district} onValueChange={setDistrict}>
               <SelectTrigger className="mt-1 font-medium"><SelectValue /></SelectTrigger>
               <SelectContent>
-                <SelectItem value="Latur">Latur</SelectItem>
-                <SelectItem value="Pune">Pune</SelectItem>
-                <SelectItem value="Nashik">Nashik</SelectItem>
-                <SelectItem value="Solapur">Solapur</SelectItem>
-                <SelectItem value="Nagpur">Nagpur</SelectItem>
+                <SelectItem value="Latur">{locale === "mr" ? "📍 लातूर (Latur)" : "📍 Latur"}</SelectItem>
+                <SelectItem value="Pune">{locale === "mr" ? "📍 पुणे (Pune)" : "📍 Pune"}</SelectItem>
+                <SelectItem value="Nashik">{locale === "mr" ? "📍 नाशिक (Nashik)" : "📍 Nashik"}</SelectItem>
+                <SelectItem value="Solapur">{locale === "mr" ? "📍 सोलापूर (Solapur)" : "📍 Solapur"}</SelectItem>
+                <SelectItem value="Nagpur">{locale === "mr" ? "📍 नागपूर (Nagpur)" : "📍 Nagpur"}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -169,11 +169,11 @@ export function LotForm({ defaultCrop, defaultDistrict }: { defaultCrop?: string
                 className="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"
               />
               <span className="text-sm font-bold text-emerald-950">
-                🤝 Pool under FPO (Latur Kisan FPO — +₹150/q Bulk Premium)
+                {t("fpoPoolTitle")}
               </span>
             </label>
             <p className="text-xs text-emerald-900/80 pl-6.5 leading-relaxed">
-              SIH #26132 Aggregation: Aggregates with 8 member farmers to unlock institutional buyers requiring 20+ MT truckloads.
+              {t("fpoPoolDesc")}
             </p>
           </div>
 

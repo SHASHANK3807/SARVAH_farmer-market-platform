@@ -140,6 +140,7 @@ export default async function LotDetailPage({
                         </span>
                       ) : lot.status === "open" ? (
                         <form action={`/api/offers/${offer.id}/accept`} method="POST">
+                          <input type="hidden" name="locale" value={locale} />
                           <Button type="submit" size="sm" className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold">
                             Accept Offer
                           </Button>

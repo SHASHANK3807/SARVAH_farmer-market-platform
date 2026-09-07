@@ -11,10 +11,11 @@ interface RecommendInput {
   district: District;
   history: PricePoint[];      // 60 days, sorted ascending by date
   hasStorage?: boolean;       // whether farmer has storage/warehouse (defaults to true)
+  needCashImmediately?: boolean; // farmer needs liquidity urgently
 }
 
 export function recommend(input: RecommendInput): RecommendationResult {
-  const { history, hasStorage = true } = input;
+  const { history, hasStorage = true, needCashImmediately = false } = input;
   if (history.length < 8) {
     return {
       action: "HOLD",
@@ -136,6 +137,18 @@ export function recommend(input: RecommendInput): RecommendationResult {
         "⚠️ मर्यादित साठवणूक: पडत्या भावात विक्री टाळण्यासाठी स्थानिक FPO गोदामात साठा करण्याचा विचार करा."
       );
     }
+  }
+
+  // Liquidity constraint adjustment (SIH PS #26132)
+  if (needCashImmediately && action !== "SELL_NOW") {
+    action = "SELL_NOW";
+    confidence = 0.9;
+    reasoning.unshift(
+      "⚡ Urgent liquidity needed: Cash flow requirements take precedence. Recommend selling now or requesting FPO advance credit."
+    );
+    reasoningMr.unshift(
+      "⚡ तातडीची पैशांची गरज: रोख रकमेची निकड महत्त्वाची आहे. त्वरित विक्री करा किंवा FPO आगाऊ कर्जाचा पर्याय तपासा."
+    );
   }
 
   return {

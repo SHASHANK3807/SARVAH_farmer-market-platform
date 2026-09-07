@@ -30,23 +30,23 @@ function FarmerDashboardContent() {
               {t("dashboard")}
             </h1>
             <span className="text-xs bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded">
-              Priya Patil (Farmer)
+              {t("personaBadge")}
             </span>
           </div>
           <p className="text-sm text-muted-foreground mt-1">
-            Real-time APMC mandi intelligence and direct buyer demand.
+            {t("tagline")}
           </p>
         </div>
 
         <div className="flex gap-3">
           <Button asChild className="bg-emerald-600 hover:bg-emerald-700 shadow-sm font-semibold">
             <Link href={`/${locale}/farmer/lots/new?crop=${activeCrop}&district=${activeDistrict}`}>
-              + {t("createLot")}
+              {t("createLotBtn")}
             </Link>
           </Button>
           <Button asChild variant="outline">
             <Link href={`/${locale}/lots`}>
-              {t("myLots")}
+              {t("viewLotsBtn")}
             </Link>
           </Button>
         </div>

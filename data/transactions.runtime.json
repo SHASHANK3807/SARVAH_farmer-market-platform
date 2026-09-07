@@ -1,0 +1,13 @@
+[
+  {
+    "id": "T86af5418",
+    "lotId": "L1",
+    "offerId": "O1",
+    "buyerId": "b1",
+    "farmerId": "f1",
+    "finalPricePerQuintal": 4350,
+    "qtyTons": 10,
+    "totalAmount": 435000,
+    "closedAt": "2026-09-07T17:51:07.045Z"
+  }
+]

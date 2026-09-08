@@ -22,7 +22,13 @@ export function ActiveBuyersCard({ crop, district }: { crop: string; district: s
   const { data: buyers } = useSWR("/api/buyers", fetcher);
 
   if (demandsErr || !demands) {
-    return <Card><CardContent className="h-40 animate-pulse" /></Card>;
+    return (
+      <Card>
+        <CardContent className="space-y-3 p-6">
+          {[1,2,3].map(i => <div key={i} className="h-16 animate-pulse bg-muted rounded border" />)}
+        </CardContent>
+      </Card>
+    );
   }
 
   return (
@@ -39,7 +45,10 @@ export function ActiveBuyersCard({ crop, district }: { crop: string; district: s
       </CardHeader>
       <CardContent className="pt-4">
         {demands.length === 0 ? (
-          <p className="text-sm text-muted-foreground py-4 text-center">{t("noBuyers")}</p>
+          <p className="text-sm text-muted-foreground py-8 text-center flex flex-col items-center gap-2">
+            <span className="text-3xl">🤝</span>
+            {t("noBuyers")}
+          </p>
         ) : (
           <div className="space-y-3">
             {demands.map((d: DemandPost) => {

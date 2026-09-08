@@ -17,8 +17,8 @@ export function VerifiedBuyerBadge() {
             {t("verified")}
           </Badge>
         </TooltipTrigger>
-        <TooltipContent>
-          <p>APMC licensed • 5+ years trading • Verified digital settlement</p>
+        <TooltipContent className="text-balance max-w-xs">
+          {t("verifiedTooltip")}
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

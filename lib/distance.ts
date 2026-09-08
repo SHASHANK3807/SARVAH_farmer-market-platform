@@ -28,3 +28,8 @@ export function getDistanceInfo(
     netRealizationPerQuintal: mandiPrice ? Math.max(0, mandiPrice - transportCost) : undefined,
   };
 }
+
+export function getDistancesFromFarmer(farmerDistrict: District, mandiPrice?: number): DistanceInfo[] {
+  const mandis: District[] = ["Latur", "Pune", "Nashik", "Solapur", "Nagpur"];
+  return mandis.map(m => getDistanceInfo(farmerDistrict, m, mandiPrice));
+}

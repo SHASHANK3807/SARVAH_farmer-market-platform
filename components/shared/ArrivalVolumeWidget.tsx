@@ -1,22 +1,28 @@
 // components/shared/ArrivalVolumeWidget.tsx
 "use client";
+import useSWR from "swr";
 import { Card, CardContent } from "@/components/ui/card";
 import { useTranslations } from "next-intl";
 
-export function ArrivalVolumeWidget({ district }: { district: string }) {
+const fetcher = (url: string) => fetch(url).then(r => r.json());
+
+export function ArrivalVolumeWidget({ crop, district }: { crop: string; district: string }) {
   const t = useTranslations("farmer");
-  const volumes: Record<string, number> = {
-    Latur: 180, Pune: 220, Nashik: 145, Solapur: 165, Nagpur: 95,
-  };
-  const normalizedDistrict = district.charAt(0).toUpperCase() + district.slice(1).toLowerCase();
-  const qty = volumes[normalizedDistrict] || 120;
+  const districtCap = district.charAt(0).toUpperCase() + district.slice(1).toLowerCase();
+  const { data } = useSWR(`/api/arrivals?crop=${crop}&district=${districtCap}`, fetcher);
+
+  if (!data) return <Card><CardContent className="h-16 animate-pulse" /></Card>;
 
   return (
-    <Card className="bg-emerald-50/70 border-emerald-200">
-      <CardContent className="py-3 px-4 flex items-center gap-3">
-        <span className="text-xl">🚛</span>
-        <p className="text-sm font-medium text-emerald-950">
-          {t("arrivalsToday", { qty, district: normalizedDistrict })}
+    <Card className="border-emerald-200 bg-emerald-50/50">
+      <CardContent className="pt-4 pb-2">
+        <div className="flex items-center gap-2 text-sm">
+          <span className="text-2xl">🚛</span>
+          <span className="font-bold text-emerald-900">{data.volumeTons.toLocaleString("en-IN")} tons</span>
+          <span className="text-muted-foreground">arrived at {districtCap} today</span>
+        </div>
+        <p className="text-xs text-emerald-700 mt-1">
+          {t("arrivalsToday", { qty: data.volumeTons, district: districtCap })}
         </p>
       </CardContent>
     </Card>

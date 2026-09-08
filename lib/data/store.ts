@@ -58,8 +58,14 @@ export function getOpenLots(filters?: {
 }
 
 export function createLot(data: Omit<Lot, "id" | "createdAt" | "status">): Lot {
+  // If FPO pool, add premium to asking price
+  let askingPrice = data.askingPricePerQuintal;
+  if (data.isFpoPool) {
+    askingPrice = Math.round(data.askingPricePerQuintal * 1.035); // +3.5% premium
+  }
   const lot: Lot = {
     ...data,
+    askingPricePerQuintal: askingPrice,
     id: `L${randomUUID().slice(0, 8)}`,
     createdAt: new Date().toISOString().split("T")[0],
     status: "open",

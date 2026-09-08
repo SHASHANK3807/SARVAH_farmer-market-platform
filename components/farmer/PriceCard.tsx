@@ -35,7 +35,18 @@ export function PriceCard({ crop, district }: { crop: string; district: string }
   );
 
   if (error) return <Card><CardContent className="py-6 text-red-500">Error loading price</CardContent></Card>;
-  if (!data) return <Card><CardContent className="animate-pulse h-48" /></Card>;
+  if (!data) return (
+    <Card>
+      <CardContent className="space-y-3 p-6">
+        <div className="h-8 w-3/4 animate-pulse bg-muted rounded" />
+        <div className="h-4 w-1/2 animate-pulse bg-muted rounded" />
+        <div className="h-4 w-1/4 animate-pulse bg-muted rounded" />
+        <div className="pt-3 border-t space-y-2">
+          {[1,2,3].map(i => <div key={i} className="h-6 animate-pulse bg-muted rounded" />)}
+        </div>
+      </CardContent>
+    </Card>
+  );
 
   const { latest, changeVsYesterday, otherMandis } = data;
   const changeColor = changeVsYesterday > 0 ? "text-emerald-600" : changeVsYesterday < 0 ? "text-red-600" : "text-gray-600";
@@ -66,7 +77,7 @@ export function PriceCard({ crop, district }: { crop: string; district: string }
           <span className="font-normal text-muted-foreground">{t("vsYesterday")}</span>
         </div>
 
-        <div className="pt-3 border-t">
+        <div className="pt-3 border-t space-y-2 overflow-x-auto">
           <div className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2 flex justify-between">
             <span>{t("nearbyMandiComparison")}</span>
             <span>{t("netRealization")}</span>
@@ -85,7 +96,7 @@ export function PriceCard({ crop, district }: { crop: string; district: string }
                     <span className="font-bold text-emerald-900">
                       {formatINR(distance.netRealizationPerQuintal ?? info.price)}
                     </span>
-                    <span className="text-[10px] text-muted-foreground block">
+                    <span className="text-[10px] text-muted-foreground block break-words">
                       {locale === "mr" ? `(मूळ भाव: ${formatINR(info.price)})` : `(Gross: ${formatINR(info.price)})`}
                     </span>
                   </div>

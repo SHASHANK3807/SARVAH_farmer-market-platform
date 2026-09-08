@@ -27,6 +27,11 @@ export default async function LocaleLayout({
     <NextIntlClientProvider messages={messages}>
       <NuqsAdapter>
         <header className="border-b sticky top-0 z-40 bg-background/95 backdrop-blur">
+          {process.env.NODE_ENV === "development" && (
+            <div className="bg-emerald-50 border-b border-emerald-200 px-4 py-1.5 text-xs text-emerald-900 text-center">
+              🎯 Demo URLs: <code className="mx-1">/${locale}/farmer?crop=soybean&district=latur</code> | <code className="mx-1">/${locale}/buyer</code>
+            </div>
+          )}
           <div className="container mx-auto px-4 py-3 flex justify-between items-center">
             <Link href={`/${locale}`} className="text-xl font-bold text-emerald-700 flex items-center gap-2">
               🌾 Sarvah

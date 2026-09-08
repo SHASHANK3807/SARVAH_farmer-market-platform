@@ -1,10 +1,11 @@
 // app/[locale]/page.tsx
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 export default function LandingPage() {
   const t = useTranslations();
+  const locale = useLocale();
 
   return (
     <div className="container mx-auto px-4 py-12 max-w-4xl">
@@ -32,7 +33,7 @@ export default function LandingPage() {
             </p>
           </div>
           <Button asChild size="lg" className="w-full bg-emerald-600 hover:bg-emerald-700">
-            <Link href="./farmer?crop=soybean&district=latur">{t("landing.farmerCta")}</Link>
+            <Link href={`/${locale}/farmer?crop=soybean&district=latur`}>{t("landing.farmerCta")}</Link>
           </Button>
         </div>
 
@@ -47,7 +48,7 @@ export default function LandingPage() {
             </p>
           </div>
           <Button asChild size="lg" variant="outline" className="w-full border-blue-600 text-blue-700 hover:bg-blue-50">
-            <Link href="./buyer/lots">{t("landing.buyerCta")}</Link>
+            <Link href={`/${locale}/buyer/lots`}>{t("landing.buyerCta")}</Link>
           </Button>
         </div>
       </div>

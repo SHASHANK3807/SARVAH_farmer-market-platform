@@ -6,23 +6,15 @@ import Link from "next/link";
 import { LotBadge } from "@/components/lot/LotBadge";
 import type { Grade } from "@/lib/types";
 
-export default async function PublicLotsPage({
-  params,
-  searchParams,
+import { ErrorBoundary } from "@/components/ErrorBoundary";
+
+function PublicLotsPageContent({
+  locale,
+  lots,
 }: {
-  params: Promise<{ locale: string }> | { locale: string };
-  searchParams: Promise<{ crop?: string; district?: string }> | { crop?: string; district?: string };
+  locale: string;
+  lots: ReturnType<typeof getOpenLots>;
 }) {
-  const { locale } = await Promise.resolve(params);
-  const resolvedQuery = await Promise.resolve(searchParams);
-
-  const lots = getOpenLots({
-    crop: resolvedQuery?.crop,
-    district: resolvedQuery?.district
-      ? resolvedQuery.district.charAt(0).toUpperCase() + resolvedQuery.district.slice(1).toLowerCase()
-      : undefined,
-  });
-
   return (
     <div className="container mx-auto px-4 py-8 max-w-5xl">
       <div className="flex justify-between items-center mb-6">
@@ -97,5 +89,29 @@ export default async function PublicLotsPage({
         </div>
       )}
     </div>
+  );
+}
+
+export default async function PublicLotsPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ locale: string }> | { locale: string };
+  searchParams: Promise<{ crop?: string; district?: string }> | { crop?: string; district?: string };
+}) {
+  const { locale } = await Promise.resolve(params);
+  const resolvedQuery = await Promise.resolve(searchParams);
+
+  const lots = getOpenLots({
+    crop: resolvedQuery?.crop,
+    district: resolvedQuery?.district
+      ? resolvedQuery.district.charAt(0).toUpperCase() + resolvedQuery.district.slice(1).toLowerCase()
+      : undefined,
+  });
+
+  return (
+    <ErrorBoundary>
+      <PublicLotsPageContent locale={locale} lots={lots} />
+    </ErrorBoundary>
   );
 }

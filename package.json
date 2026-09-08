@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "reset-demo": "tsx scripts/reset-demo.ts",
+    "demo": "npm run reset-demo && npm run dev"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.23",
@@ -23,6 +25,7 @@
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "recharts": "^3.10.1",
+    "sonner": "^2.0.8",
     "swr": "^2.5.1",
     "tailwind-merge": "^3.6.0",
     "tailwindcss-animate": "^1.0.7",

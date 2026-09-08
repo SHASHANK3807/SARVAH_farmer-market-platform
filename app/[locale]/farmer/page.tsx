@@ -54,7 +54,7 @@ function FarmerDashboardContent() {
 
       <CropDistrictSelector />
 
-      <ArrivalVolumeWidget district={activeDistrict} />
+      <ArrivalVolumeWidget crop={activeCrop} district={activeDistrict} />
 
       <div className="grid gap-6 md:grid-cols-2">
         <PriceCard crop={activeCrop} district={activeDistrict} />
@@ -68,10 +68,14 @@ function FarmerDashboardContent() {
   );
 }
 
+import { ErrorBoundary } from "@/components/ErrorBoundary";
+
 export default function FarmerDashboard() {
   return (
     <Suspense fallback={<div className="container mx-auto px-4 py-12 text-center text-muted-foreground">Loading Farmer Dashboard…</div>}>
-      <FarmerDashboardContent />
+      <ErrorBoundary>
+        <FarmerDashboardContent />
+      </ErrorBoundary>
     </Suspense>
   );
 }

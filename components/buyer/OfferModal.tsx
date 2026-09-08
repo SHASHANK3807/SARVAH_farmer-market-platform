@@ -1,6 +1,7 @@
 // components/buyer/OfferModal.tsx
 "use client";
 import { useState } from "react";
+import { toast } from "sonner";
 import {
   Dialog,
   DialogContent,
@@ -40,8 +41,11 @@ export function OfferModal({ lot }: { lot: Lot }) {
     });
     setSubmitting(false);
     if (res.ok) {
+      toast.success("Offer Sent", { description: "Digital offer transmitted to farmer" });
       setOpen(false);
       router.refresh();
+    } else {
+      toast.error("Failed", { description: "Could not submit offer" });
     }
   };
 
@@ -52,7 +56,7 @@ export function OfferModal({ lot }: { lot: Lot }) {
           Make an Offer
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-md">
+      <DialogContent className="max-w-full sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="capitalize text-lg font-bold">
             Submit Offer • {lot.crop} ({lot.qtyTons} Tons)

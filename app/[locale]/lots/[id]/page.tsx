@@ -8,6 +8,7 @@ import { getDistanceInfo } from "@/lib/distance";
 import { seedBuyers } from "@/lib/data/seed-loader";
 import { LotBadge } from "@/components/lot/LotBadge";
 import { VerifiedBuyerBadge } from "@/components/shared/VerifiedBuyerBadge";
+import { AcceptOfferButton } from "@/components/lot/AcceptOfferButton";
 import Link from "next/link";
 import type { Grade, District } from "@/lib/types";
 
@@ -78,7 +79,7 @@ export default async function LotDetailPage({
             </div>
           )}
 
-          <div className="grid grid-cols-2 gap-4 border-t pt-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 border-t pt-4">
             <div>
               <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Transport & Distance (to Pune APMC)</h3>
               <p className="text-sm font-semibold">{distance.label}</p>
@@ -139,12 +140,7 @@ export default async function LotDetailPage({
                           ✓ Offer Accepted
                         </span>
                       ) : lot.status === "open" ? (
-                        <form action={`/api/offers/${offer.id}/accept`} method="POST">
-                          <input type="hidden" name="locale" value={locale} />
-                          <Button type="submit" size="sm" className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold">
-                            Accept Offer
-                          </Button>
-                        </form>
+                        <AcceptOfferButton offerId={offer.id} locale={locale} lotId={lot.id} />
                       ) : (
                         <span className="text-xs font-medium text-muted-foreground">Lot Closed</span>
                       )}

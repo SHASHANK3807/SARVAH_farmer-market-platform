@@ -39,15 +39,26 @@ export function RecommendationCard({ crop, district }: { crop: string; district:
   const tRec = useTranslations("recommendation");
   const locale = useLocale();
   const [hasStorage, setHasStorage] = useState(true);
+  const [needCash, setNeedCash] = useState(false);
 
   const districtCap = district.charAt(0).toUpperCase() + district.slice(1).toLowerCase();
   const { data, error } = useSWR(
-    `/api/recommend?crop=${crop}&district=${districtCap}&hasStorage=${hasStorage}`,
+    `/api/recommend?crop=${crop}&district=${districtCap}&hasStorage=${hasStorage}&needCashImmediately=${needCash}`,
     fetcher
   );
 
   if (error || !data) {
-    return <Card><CardContent className="h-48 animate-pulse" /></Card>;
+    return (
+      <Card className="bg-slate-50 border-slate-300 border shadow-sm flex flex-col justify-between">
+        <CardContent className="space-y-3 p-6">
+          <div className="h-8 w-1/4 animate-pulse bg-muted rounded" />
+          <div className="h-4 w-full animate-pulse bg-muted rounded" />
+          <div className="h-4 w-3/4 animate-pulse bg-muted rounded" />
+          <div className="h-4 w-1/2 animate-pulse bg-muted rounded" />
+          <div className="h-10 w-full animate-pulse bg-muted rounded mt-4" />
+        </CardContent>
+      </Card>
+    );
   }
 
   const style = ACTION_STYLES[data.action] || ACTION_STYLES.HOLD;
@@ -81,27 +92,38 @@ export function RecommendationCard({ crop, district }: { crop: string; district:
 
           <div className="space-y-1.5 text-xs sm:text-sm text-foreground/90">
             {reasoningList.map((r: string, i: number) => (
-              <div key={i} className="flex items-start gap-2">
-                <span className="text-emerald-700 font-bold mt-0.5">•</span>
-                <span>{r}</span>
+              <div key={i} className="flex items-start gap-2 text-balance">
+                <span className="text-emerald-700 font-bold mt-0.5 flex-shrink-0">•</span>
+                <span className="break-words">{r}</span>
               </div>
             ))}
           </div>
         </CardContent>
       </div>
 
-      <div className="px-6 pb-4 pt-2 border-t border-black/5 flex items-center justify-between">
-        <label className="flex items-center gap-2 cursor-pointer text-xs font-medium text-foreground">
-          <input
-            type="checkbox"
-            checked={hasStorage}
-            onChange={(e) => setHasStorage(e.target.checked)}
-            className="rounded border-gray-300 text-emerald-600 focus:ring-emerald-500 h-4 w-4"
-          />
-          <span>{locale === "mr" ? "साठवणूक / गोदाम उपलब्ध आहे" : "I have on-farm storage / warehouse"}</span>
-        </label>
-        <span className="text-[11px] text-muted-foreground">
-          {!hasStorage ? "⚠️ Distress prevention active" : "Standard holding advice"}
+      <div className="px-6 pb-4 pt-2 border-t border-black/5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="space-y-2">
+          <label className="flex items-center gap-2 cursor-pointer text-xs font-medium text-foreground">
+            <input
+              type="checkbox"
+              checked={hasStorage}
+              onChange={(e) => setHasStorage(e.target.checked)}
+              className="rounded border-gray-300 text-emerald-600 focus:ring-emerald-500 h-4 w-4"
+            />
+            <span>{locale === "mr" ? "साठवणूक / गोदाम उपलब्ध आहे" : "I have on-farm storage / warehouse"}</span>
+          </label>
+          <label className="flex items-center gap-2 cursor-pointer text-xs font-medium text-foreground">
+            <input
+              type="checkbox"
+              checked={needCash}
+              onChange={(e) => setNeedCash(e.target.checked)}
+              className="rounded border-gray-300 text-emerald-600 focus:ring-emerald-500 h-4 w-4"
+            />
+            <span>{locale === "mr" ? "तातडीची पैशांची गरज आहे" : "Urgent cash needed"}</span>
+          </label>
+        </div>
+        <span className="text-[11px] text-muted-foreground self-start sm:self-center">
+          {!hasStorage || needCash ? "⚠️ Distress prevention active" : "Standard holding advice"}
         </span>
       </div>
     </Card>

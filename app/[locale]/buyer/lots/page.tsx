@@ -7,9 +7,9 @@ import { LotBadge } from "@/components/lot/LotBadge";
 import { getDistanceInfo } from "@/lib/distance";
 import type { Grade, District } from "@/lib/types";
 
-export default async function BuyerBrowseLots() {
-  const lots = getOpenLots();
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 
+function BuyerBrowseLotsContent({ lots }: { lots: ReturnType<typeof getOpenLots> }) {
   return (
     <div className="container mx-auto px-4 py-8 max-w-5xl space-y-6">
       <div className="border-b pb-4">
@@ -19,6 +19,13 @@ export default async function BuyerBrowseLots() {
         </p>
       </div>
 
+      {lots.length === 0 && (
+        <div className="text-center py-16 border rounded-xl bg-card">
+          <span className="text-4xl mb-2 block">🌾</span>
+          <p className="font-semibold text-foreground">No lots available</p>
+          <p className="text-xs text-muted-foreground mt-1">Check back later or post a demand</p>
+        </div>
+      )}
       <div className="grid gap-4 md:grid-cols-2">
         {lots.map((lot) => {
           // Calculate distance from lot district to Rajan's base in Pune
@@ -85,5 +92,14 @@ export default async function BuyerBrowseLots() {
         })}
       </div>
     </div>
+  );
+}
+
+export default async function BuyerBrowseLots() {
+  const lots = getOpenLots();
+  return (
+    <ErrorBoundary>
+      <BuyerBrowseLotsContent lots={lots} />
+    </ErrorBoundary>
   );
 }

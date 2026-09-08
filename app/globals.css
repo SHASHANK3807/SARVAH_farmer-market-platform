@@ -109,3 +109,8 @@
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
+
+@media (max-width: 640px) {
+  .text-balance { text-wrap: balance; }
+  .demo-full-width { width: 100% !important; }
+}

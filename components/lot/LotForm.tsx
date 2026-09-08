@@ -2,6 +2,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { z } from "zod";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -40,8 +41,14 @@ export function LotForm({ defaultCrop, defaultDistrict }: { defaultCrop?: string
     defaultDistrict ? defaultDistrict.charAt(0).toUpperCase() + defaultDistrict.slice(1).toLowerCase() : "Latur"
   );
   const [isFpoPool, setIsFpoPool] = useState(true);
-  const farmerName = "Priya Patil"; // Demo Persona
-  const farmerId = "f1";
+  const [farmerName, setFarmerName] = useState("Priya Patil");
+  const [farmerId, setFarmerId] = useState("f1");
+
+  const farmers = [
+    { id: "f1", name: "Priya Patil", district: "Latur" },
+    { id: "f2", name: "Suresh Deshmukh", district: "Pune" },
+    { id: "f3", name: "Anil Wankhede", district: "Nagpur" },
+  ];
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -70,11 +77,12 @@ export function LotForm({ defaultCrop, defaultDistrict }: { defaultCrop?: string
       body: JSON.stringify(parsed.data),
     });
     if (!res.ok) {
-      setError("Failed to create lot");
+      toast.error("Failed", { description: "Could not create lot" });
       setSubmitting(false);
       return;
     }
     const lot = await res.json();
+    toast.success("Success", { description: "Lot created successfully" });
     router.push(`/${locale}/lots/${lot.id}`);
   };
 
@@ -159,6 +167,16 @@ export function LotForm({ defaultCrop, defaultDistrict }: { defaultCrop?: string
             </Select>
           </div>
 
+          <div>
+            <Label className="font-semibold">Farmer (Demo)</Label>
+            <Select value={farmerId} onValueChange={v => { setFarmerId(v); const f = farmers.find(x => x.id === v); if (f) setFarmerName(f.name); }}>
+              <SelectTrigger className="mt-1 font-medium"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                {farmers.map(f => <SelectItem key={f.id} value={f.id}>{f.name} ({f.district})</SelectItem>)}
+              </SelectContent>
+            </Select>
+          </div>
+
           <div className="rounded-lg border border-emerald-300 bg-emerald-50/80 p-3.5 space-y-1">
             <label className="flex items-center gap-2.5 cursor-pointer">
               <input
@@ -175,6 +193,11 @@ export function LotForm({ defaultCrop, defaultDistrict }: { defaultCrop?: string
             <p className="text-xs text-emerald-900/80 pl-6.5 leading-relaxed">
               {t("fpoPoolDesc")}
             </p>
+            {isFpoPool && (
+              <p className="text-xs text-emerald-700 bg-emerald-50 p-2 rounded border pl-6.5 mt-2">
+                💡 FPO pools typically command +3-5% premium vs individual lots due to volume & quality assurance
+              </p>
+            )}
           </div>
 
           {error && <p className="text-sm text-red-600">{error}</p>}

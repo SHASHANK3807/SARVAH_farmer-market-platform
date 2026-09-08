@@ -44,3 +44,13 @@ export async function fetchAllMandisLatestPrices(
   }
   return results;
 }
+
+export async function fetchArrivalVolume(crop: string, district: string): Promise<number> {
+  // Mock: generate realistic arrival based on crop + district + date
+  const base: Record<string, number> = { soybean: 200, onion: 150, tur: 100 };
+  const cropBase = base[crop.toLowerCase()] || 100;
+  const districtMult: Record<string, number> = { Latur: 1.2, Pune: 0.8, Nashik: 1.0, Solapur: 0.9, Nagpur: 1.1 };
+  const mult = districtMult[district] || 1;
+  const today = new Date().getDate();
+  return Math.round(cropBase * mult * (0.8 + Math.random() * 0.4) * (1 + today / 30));
+}

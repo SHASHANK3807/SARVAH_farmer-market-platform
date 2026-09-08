@@ -1,5 +1,5 @@
-// components/shared/LocaleToggle.tsx
 "use client";
+
 import { useRouter, usePathname } from "next/navigation";
 import { useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
@@ -7,21 +7,18 @@ import { Button } from "@/components/ui/button";
 export function LocaleToggle() {
   const router = useRouter();
   const pathname = usePathname();
-  const currentLocale = useLocale();
+  const locale = useLocale();
 
-  const switchTo = currentLocale === "en" ? "mr" : "en";
-  const newPath = pathname.startsWith(`/${currentLocale}`)
-    ? pathname.replace(`/${currentLocale}`, `/${switchTo}`)
-    : `/${switchTo}${pathname}`;
+  const nextLocale = locale === "en" ? "mr" : "en";
+  const newPath = pathname.replace(`/${locale}`, `/${nextLocale}`);
 
   return (
     <Button
-      variant="outline"
+      variant="ghost"
       size="sm"
-      className="font-medium"
       onClick={() => router.push(newPath)}
     >
-      {switchTo === "en" ? "English" : "मराठी"}
+      {nextLocale === "en" ? "English" : "मराठी"}
     </Button>
   );
 }

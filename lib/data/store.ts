@@ -4,7 +4,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import { randomUUID } from "crypto";
-import type { Lot, Offer, Transaction, DemandPost } from "@/lib/types";
+import type { Lot, Offer, Transaction, DemandPost, User } from "@/lib/types";
 import {
   seedLots, seedOffers, seedTransactions, seedDemands,
 } from "./seed-loader";
@@ -14,6 +14,7 @@ const LOTS_FILE = path.join(DATA_DIR, "lots.runtime.json");
 const OFFERS_FILE = path.join(DATA_DIR, "offers.runtime.json");
 const TX_FILE = path.join(DATA_DIR, "transactions.runtime.json");
 const DEMANDS_FILE = path.join(DATA_DIR, "demand-posts.runtime.json");
+const USERS_FILE = path.join(DATA_DIR, "users.runtime.json");
 
 function load<T>(file: string, seed: T[]): T[] {
   if (fs.existsSync(file)) {
@@ -32,6 +33,31 @@ function save<T>(file: string, data: T[]) {
   } catch (err) {
     console.error(`Failed to save ${file}:`, err);
   }
+}
+
+// Users
+export function getAllUsers(): User[] {
+  return load(USERS_FILE, []);
+}
+
+export function getUserById(id: string): User | undefined {
+  return getAllUsers().find((u) => u.id === id);
+}
+
+export function getUserByPhone(phone: string): User | undefined {
+  return getAllUsers().find((u) => u.phone === phone);
+}
+
+export function createUser(data: Omit<User, "id" | "createdAt">): User {
+  const user: User = {
+    ...data,
+    id: `U${randomUUID().slice(0, 8)}`,
+    createdAt: new Date().toISOString(),
+  };
+  const users = getAllUsers();
+  users.unshift(user);
+  save(USERS_FILE, users);
+  return user;
 }
 
 // Lots

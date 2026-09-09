@@ -5,17 +5,18 @@ import { formatINR } from "@/lib/utils";
 import { OfferModal } from "@/components/buyer/OfferModal";
 import { LotBadge } from "@/components/lot/LotBadge";
 import { getDistanceInfo } from "@/lib/distance";
-import type { Grade, District } from "@/lib/types";
-
+import type { Grade, District, User } from "@/lib/types";
+import { getSession } from "@/lib/auth";
+import { redirect } from "next/navigation";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 
-function BuyerBrowseLotsContent({ lots }: { lots: ReturnType<typeof getOpenLots> }) {
+function BuyerBrowseLotsContent({ lots, user }: { lots: ReturnType<typeof getOpenLots>, user: User }) {
   return (
     <div className="container mx-auto px-4 py-8 max-w-5xl space-y-6">
       <div className="border-b pb-4">
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Browse Farmer & FPO Lots</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Welcome, {user.name}</h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Make digital counter-offers directly to farmers and pooled FPO hubs across Maharashtra.
+          Browse farmer lots and FPO pools. Freight calculated from your base in {user.district}.
         </p>
       </div>
 
@@ -28,8 +29,8 @@ function BuyerBrowseLotsContent({ lots }: { lots: ReturnType<typeof getOpenLots>
       )}
       <div className="grid gap-4 md:grid-cols-2">
         {lots.map((lot) => {
-          // Calculate distance from lot district to Rajan's base in Pune
-          const distance = getDistanceInfo(lot.district as District, "Pune", lot.askingPricePerQuintal);
+          // Calculate distance from lot district to user's base
+          const distance = getDistanceInfo(lot.district as District, user.district, lot.askingPricePerQuintal);
 
           return (
             <Card key={lot.id} className="border shadow-sm hover:border-blue-400 transition-all flex flex-col justify-between">
@@ -95,11 +96,17 @@ function BuyerBrowseLotsContent({ lots }: { lots: ReturnType<typeof getOpenLots>
   );
 }
 
-export default async function BuyerBrowseLots() {
+export default async function BuyerBrowseLots({ params }: { params: Promise<{ locale: string }> | { locale: string } }) {
+  const { locale } = await Promise.resolve(params);
+  const session = await getSession();
+  if (!session || session.user.role !== "buyer") {
+    redirect(`/${locale}/login?role=buyer`);
+  }
+
   const lots = getOpenLots();
   return (
     <ErrorBoundary>
-      <BuyerBrowseLotsContent lots={lots} />
+      <BuyerBrowseLotsContent lots={lots} user={session.user} />
     </ErrorBoundary>
   );
 }

@@ -6,6 +6,16 @@ export type Crop = "soybean" | "onion" | "tur";
 export type Grade = "A" | "B" | "C";
 export type Locale = "en" | "mr";
 
+export interface User {
+  id: string;
+  name: string;
+  phone: string;
+  passwordHash: string;
+  role: "farmer" | "buyer";
+  district: District;
+  createdAt: string;
+}
+
 export type RecommendationAction = "SELL_NOW" | "WAIT_3_DAYS" | "WAIT_2_WEEKS" | "HOLD";
 
 export interface PricePoint {

@@ -1,6 +1,6 @@
 // app/[locale]/farmer/page.tsx
 "use client";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import { useQueryState } from "nuqs";
 import { CropDistrictSelector } from "@/components/farmer/CropDistrictSelector";
 import { PriceCard } from "@/components/farmer/PriceCard";
@@ -11,15 +11,37 @@ import { ArrivalVolumeWidget } from "@/components/shared/ArrivalVolumeWidget";
 import { Button } from "@/components/ui/button";
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
+import useSWR from "swr";
+import { useRouter } from "next/navigation";
+import type { User } from "@/lib/types";
+
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 function FarmerDashboardContent() {
   const t = useTranslations("farmer");
   const locale = useLocale();
+  const router = useRouter();
   const [crop] = useQueryState("crop", { defaultValue: "soybean" });
-  const [district] = useQueryState("district", { defaultValue: "latur" });
 
+  const { data, isLoading } = useSWR<{ user: User | null }>("/api/auth/me", fetcher);
+
+  if (isLoading) {
+    return <div className="container mx-auto px-4 py-12 text-center text-muted-foreground">Loading...</div>;
+  }
+
+  useEffect(() => {
+    if (!isLoading && (!data?.user || data.user.role !== "farmer")) {
+      router.push(`/${locale}/login?role=farmer`);
+    }
+  }, [isLoading, data, locale, router]);
+
+  if (!data?.user || data.user.role !== "farmer") {
+    return null;
+  }
+
+  const user = data.user;
   const activeCrop = crop || "soybean";
-  const activeDistrict = district || "latur";
+  const activeDistrict = user.district.toLowerCase();
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-6xl space-y-6">
@@ -27,10 +49,10 @@ function FarmerDashboardContent() {
         <div>
           <div className="flex items-center gap-2">
             <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-emerald-950">
-              {t("dashboard")}
+              Welcome, {user.name}
             </h1>
             <span className="text-xs bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded">
-              {t("personaBadge")}
+              Farmer
             </span>
           </div>
           <p className="text-sm text-muted-foreground mt-1">
@@ -45,8 +67,8 @@ function FarmerDashboardContent() {
             </Link>
           </Button>
           <Button asChild variant="outline">
-            <Link href={`/${locale}/lots`}>
-              {t("viewLotsBtn")}
+            <Link href={`/${locale}/farmer/lots`}>
+              {locale === "mr" ? "माझे लॉट्स" : "My Lots"}
             </Link>
           </Button>
         </div>

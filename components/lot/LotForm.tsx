@@ -11,6 +11,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useTranslations, useLocale } from "next-intl";
+import useSWR from "swr";
+import type { User } from "@/lib/types";
+
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 const LotSchema = z.object({
   crop: z.enum(["soybean", "onion", "tur"]),
@@ -32,6 +36,8 @@ export function LotForm({ defaultCrop, defaultDistrict }: { defaultCrop?: string
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const { data: session } = useSWR<{ user: User | null }>("/api/auth/me", fetcher);
+
   const [crop, setCrop] = useState(defaultCrop ? defaultCrop.toLowerCase() : "soybean");
   const [qtyTons, setQtyTons] = useState("10");
   const [grade, setGrade] = useState("A");
@@ -41,14 +47,6 @@ export function LotForm({ defaultCrop, defaultDistrict }: { defaultCrop?: string
     defaultDistrict ? defaultDistrict.charAt(0).toUpperCase() + defaultDistrict.slice(1).toLowerCase() : "Latur"
   );
   const [isFpoPool, setIsFpoPool] = useState(true);
-  const [farmerName, setFarmerName] = useState("Priya Patil");
-  const [farmerId, setFarmerId] = useState("f1");
-
-  const farmers = [
-    { id: "f1", name: "Priya Patil", district: "Latur" },
-    { id: "f2", name: "Suresh Deshmukh", district: "Pune" },
-    { id: "f3", name: "Anil Wankhede", district: "Nagpur" },
-  ];
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,8 +59,8 @@ export function LotForm({ defaultCrop, defaultDistrict }: { defaultCrop?: string
       askingPricePerQuintal: Number(askingPricePerQuintal),
       qualityNotes,
       district,
-      farmerName,
-      farmerId,
+      farmerName: session?.user?.name || "Unknown Farmer",
+      farmerId: session?.user?.id || "f1",
       isFpoPool,
       fpoName: isFpoPool ? "Latur Kisan FPO" : undefined,
     });
@@ -83,7 +81,7 @@ export function LotForm({ defaultCrop, defaultDistrict }: { defaultCrop?: string
     }
     const lot = await res.json();
     toast.success("Success", { description: "Lot created successfully" });
-    router.push(`/${locale}/lots/${lot.id}`);
+    setSubmitting(false);
   };
 
   return (
@@ -167,16 +165,6 @@ export function LotForm({ defaultCrop, defaultDistrict }: { defaultCrop?: string
             </Select>
           </div>
 
-          <div>
-            <Label className="font-semibold">Farmer (Demo)</Label>
-            <Select value={farmerId} onValueChange={v => { setFarmerId(v); const f = farmers.find(x => x.id === v); if (f) setFarmerName(f.name); }}>
-              <SelectTrigger className="mt-1 font-medium"><SelectValue /></SelectTrigger>
-              <SelectContent>
-                {farmers.map(f => <SelectItem key={f.id} value={f.id}>{f.name} ({f.district})</SelectItem>)}
-              </SelectContent>
-            </Select>
-          </div>
-
           <div className="rounded-lg border border-emerald-300 bg-emerald-50/80 p-3.5 space-y-1">
             <label className="flex items-center gap-2.5 cursor-pointer">
               <input
@@ -202,9 +190,14 @@ export function LotForm({ defaultCrop, defaultDistrict }: { defaultCrop?: string
 
           {error && <p className="text-sm text-red-600">{error}</p>}
 
-          <Button type="submit" disabled={submitting} className="w-full bg-emerald-600 hover:bg-emerald-700 py-5 font-semibold text-base">
-            {submitting ? t("submitting") : t("submit")}
-          </Button>
+          <div className="flex gap-3 pt-2">
+            <Button type="button" variant="outline" onClick={() => router.back()} className="w-full py-5 font-semibold text-base">
+              {locale === "mr" ? "मागे जा" : "Back"}
+            </Button>
+            <Button type="submit" disabled={submitting} className="w-full bg-emerald-600 hover:bg-emerald-700 py-5 font-semibold text-base">
+              {submitting ? t("submitting") : t("submit")}
+            </Button>
+          </div>
         </form>
       </CardContent>
     </Card>

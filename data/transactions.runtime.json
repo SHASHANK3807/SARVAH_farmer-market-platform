@@ -1,5 +1,16 @@
 [
   {
+    "id": "T23bad88c",
+    "lotId": "Lc14ed854",
+    "offerId": "Oe156938b",
+    "buyerId": "b1",
+    "farmerId": "f1",
+    "finalPricePerQuintal": 4504,
+    "qtyTons": 10,
+    "totalAmount": 450400,
+    "closedAt": "2026-09-09T10:21:16.183Z"
+  },
+  {
     "id": "T86af5418",
     "lotId": "L1",
     "offerId": "O1",

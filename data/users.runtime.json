@@ -1,0 +1,20 @@
+[
+  {
+    "name": "demo trader",
+    "phone": "999999999",
+    "passwordHash": "87ac603f5498957aa686d8d576eb7ef28f1194add241c920c22e7f0799590b39",
+    "role": "buyer",
+    "district": "Pune",
+    "id": "U952ec1a4",
+    "createdAt": "2026-09-09T18:40:13.089Z"
+  },
+  {
+    "name": "shashank poloju",
+    "phone": "7842956226",
+    "passwordHash": "0ab5543540c59c050236aff1678e5fffa1564aeab96c90bbdf2686d997fc68dc",
+    "role": "farmer",
+    "district": "Latur",
+    "id": "U09c351fc",
+    "createdAt": "2026-09-09T15:26:34.915Z"
+  }
+]

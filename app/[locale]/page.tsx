@@ -27,14 +27,19 @@ export default function LandingPage() {
             <div className="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center text-xl mb-4 font-bold">
               👨‍🌾
             </div>
-            <h3 className="text-xl font-bold mb-2">Farmer Persona (Priya Patil)</h3>
+            <h3 className="text-xl font-bold mb-2">{locale === "mr" ? "शेतकरी" : "Farmer"}</h3>
             <p className="text-sm text-muted-foreground mb-4">
               Real-time mandi prices, localized Recharts trend, and the smart SELL/WAIT decision engine to stop distress selling.
             </p>
           </div>
-          <Button asChild size="lg" className="w-full bg-emerald-600 hover:bg-emerald-700">
-            <Link href={`/${locale}/farmer?crop=soybean&district=latur`}>{t("landing.farmerCta")}</Link>
-          </Button>
+          <div className="flex gap-3">
+            <Button asChild size="lg" className="w-full bg-emerald-600 hover:bg-emerald-700">
+              <Link href={`/${locale}/login?role=farmer`}>{locale === "mr" ? "लॉगिन" : "Login"}</Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="w-full border-emerald-200 hover:bg-emerald-50 text-emerald-700">
+              <Link href={`/${locale}/register?role=farmer`}>{locale === "mr" ? "नोंदणी" : "Register"}</Link>
+            </Button>
+          </div>
         </div>
 
         <div className="rounded-xl border bg-card p-6 shadow-sm flex flex-col justify-between hover:border-blue-500 transition-colors">
@@ -42,14 +47,19 @@ export default function LandingPage() {
             <div className="w-10 h-10 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center text-xl mb-4 font-bold">
               🏢
             </div>
-            <h3 className="text-xl font-bold mb-2">Buyer Persona (Rajan Traders)</h3>
+            <h3 className="text-xl font-bold mb-2">{locale === "mr" ? "खरेदीदार" : "Buyer"}</h3>
             <p className="text-sm text-muted-foreground mb-4">
               Browse farmer lots and FPO aggregated bulk pools, post quality demands, and make counter-offers in a transparent ledger.
             </p>
           </div>
-          <Button asChild size="lg" variant="outline" className="w-full border-blue-600 text-blue-700 hover:bg-blue-50">
-            <Link href={`/${locale}/buyer/lots`}>{t("landing.buyerCta")}</Link>
-          </Button>
+          <div className="flex gap-3">
+            <Button asChild size="lg" className="w-full bg-blue-600 hover:bg-blue-700 text-white">
+              <Link href={`/${locale}/login?role=buyer`}>{locale === "mr" ? "लॉगिन" : "Login"}</Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="w-full border-blue-200 hover:bg-blue-50 text-blue-700">
+              <Link href={`/${locale}/register?role=buyer`}>{locale === "mr" ? "नोंदणी" : "Register"}</Link>
+            </Button>
+          </div>
         </div>
       </div>
 

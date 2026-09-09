@@ -53,7 +53,7 @@ export function PriceTrendChart({ data }: { data: PricePoint[] }) {
             formatter={(value: unknown) => [formatINR(Number(value)), "Mandi Rate"]}
             labelStyle={{ color: "#0f172a", fontWeight: "bold" }}
             contentStyle={{ borderRadius: "8px", border: "1px solid #cbd5e1" }}
-            labelFormatter={(label: any) => label}
+            labelFormatter={(label: React.ReactNode) => label}
           />
           <Legend wrapperStyle={{ fontSize: "12px", paddingTop: "8px" }} />
           <Line

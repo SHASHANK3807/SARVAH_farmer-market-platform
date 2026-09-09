@@ -5,9 +5,12 @@ import { notFound } from "next/navigation";
 import { locales } from "@/lib/i18n";
 import { LocaleToggle } from "@/components/shared/LocaleToggle";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
+import { AuthNav } from "@/components/shared/AuthNav";
 import Link from "next/link";
 
-export const metadata = {
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
   title: "Sarvah — Friend of the Market",
   description: "Maharashtra farm-gate price discovery and marketplace for smallholders.",
 };
@@ -27,11 +30,7 @@ export default async function LocaleLayout({
     <NextIntlClientProvider messages={messages}>
       <NuqsAdapter>
         <header className="border-b sticky top-0 z-40 bg-background/95 backdrop-blur">
-          {process.env.NODE_ENV === "development" && (
-            <div className="bg-emerald-50 border-b border-emerald-200 px-4 py-1.5 text-xs text-emerald-900 text-center">
-              🎯 Demo URLs: <code className="mx-1">/${locale}/farmer?crop=soybean&district=latur</code> | <code className="mx-1">/${locale}/buyer</code>
-            </div>
-          )}
+
           <div className="container mx-auto px-4 py-3 flex justify-between items-center">
             <Link href={`/${locale}`} className="text-xl font-bold text-emerald-700 flex items-center gap-2">
               🌾 Sarvah
@@ -46,9 +45,7 @@ export default async function LocaleLayout({
               <Link href={`/${locale}/transactions`} className="text-sm font-medium hover:text-emerald-700 hover:underline">
                 {locale === "mr" ? "व्यवहार" : "Transactions"}
               </Link>
-              <Link href={`/${locale}/roadmap`} className="text-sm font-medium hover:text-emerald-700 hover:underline">
-                {locale === "mr" ? "रोडमॅप" : "Roadmap"}
-              </Link>
+              <AuthNav />
               <LocaleToggle />
             </nav>
           </div>

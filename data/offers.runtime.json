@@ -1,5 +1,45 @@
 [
   {
+    "lotId": "Lee1dbd2b",
+    "buyerId": "b1",
+    "pricePerQuintal": 4490,
+    "qtyTons": 6,
+    "message": "Ready for immediate truck pickup. 24h bank settlement.",
+    "id": "O142a22e0",
+    "createdAt": "2026-09-09",
+    "status": "pending"
+  },
+  {
+    "lotId": "Lc14ed854",
+    "buyerId": "b1",
+    "pricePerQuintal": 4504,
+    "qtyTons": 10,
+    "message": "Ready for immediate truck pickup. 24h bank settlement.",
+    "id": "Oe156938b",
+    "createdAt": "2026-09-09",
+    "status": "accepted"
+  },
+  {
+    "lotId": "Lc14ed854",
+    "buyerId": "b1",
+    "pricePerQuintal": 4504,
+    "qtyTons": 10,
+    "message": "Ready for immediate truck pickup. 24h bank settlement.",
+    "id": "O00189b5e",
+    "createdAt": "2026-09-09",
+    "status": "pending"
+  },
+  {
+    "lotId": "Lc14ed854",
+    "buyerId": "b1",
+    "pricePerQuintal": 4504,
+    "qtyTons": 10,
+    "message": "Ready for immediate truck pickup. 24h bank settlement.",
+    "id": "O83cc61b2",
+    "createdAt": "2026-09-09",
+    "status": "pending"
+  },
+  {
     "id": "O1",
     "lotId": "L1",
     "buyerId": "b1",
